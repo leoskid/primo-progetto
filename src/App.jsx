@@ -9,7 +9,9 @@ import Login from "./pages/login/Login";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
-import { auth } from "./firebase/firebase.data";
+import { auth, saveProductIntoDataBase } from "./firebase/firebase.data";
+
+import { categorie } from "./shop-data";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -17,6 +19,7 @@ function App() {
 		auth.onAuthStateChanged((userAuth) => {
 			setUser(userAuth);
 		});
+		saveProductIntoDataBase(categorie);
 	}, []);
 
 	return (

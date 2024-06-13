@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { auth, signInWithGoogle } from "../../firebase/firebase.data";
+import {
+	auth,
+	getUserProfile,
+	signInWithGoogle,
+} from "../../firebase/firebase.data";
 import "./login-form.scss";
 
 const LoginForm = () => {
@@ -20,7 +24,13 @@ const LoginForm = () => {
 	};
 
 	const loginGoogle = async () => {
-		await signInWithGoogle();
+		const userLogin = await signInWithGoogle();
+		const { family_name, given_name } =
+			userLogin.additionalUserInfo.profile;
+		getUserProfile(userLogin.user, {
+			cognome: family_name,
+			nome: given_name,
+		});
 	};
 
 	//creo funzione che utilizza lo state per memorizzare le credenziali che assegnamo all'onChange degli input in modo prende il contenuto dell'evento sull'elemento stesso assegnando con una destrutturazione il valore ed il nome del campo ad ogni modifica del campo

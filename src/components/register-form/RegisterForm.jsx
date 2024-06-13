@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth } from "../../firebase/firebase.data";
+import { auth, getUserProfile } from "../../firebase/firebase.data";
 import "./register-form.scss";
 
 const RegisterForm = () => {
@@ -20,6 +20,7 @@ const RegisterForm = () => {
 			email,
 			password
 		);
+		getUserProfile(register.user, { nome, cognome });
 	};
 
 	//creo funzione che utilizza lo state per memorizzare le credenziali che assegnamo all'onChange degli input in modo prende il contenuto dell'evento sull'elemento stesso assegnando con una destrutturazione il valore ed il nome del campo ad ogni modifica del campo
